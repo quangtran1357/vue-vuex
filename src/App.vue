@@ -2,12 +2,20 @@
   <img alt="Vue logo" src="./assets/logo.png">
   <p>Counter: {{counter}}</p>
   <p>Total: {{total}}</p>
+  <p>User name: {{userName}}</p>
+  <p>User class: {{userClass}}</p>
   <button @click="actionIncrementApp">Increment</button>
   <button @click="incrementAppWithNumbers">Increment With 10</button>
+  <br>
+  <button @click="actionUpdateDataAPI">Update Data API</button>
+  <br>
+  <br>
+  <br>
+  <br>
 </template>
 
 <script>
-import {mapState, mapMutations, mapActions} from 'vuex'
+import {mapState, mapGetters, mapMutations, mapActions} from 'vuex'
 export default {
   name: 'App',
   data() {
@@ -25,12 +33,15 @@ export default {
     dataLocalFormat() {
       return this.dataLocal * 100
     },
+    user() {
+      return this.$store.state.user;
+    },
     ...mapState([
       'counter',
       'total',
       'sum',
       'aveger'
-    ])
+    ]),
     // ...mapState({
     //   counterNumber: state => state.counter,
     //   totalNumber: state => state.total,
@@ -43,6 +54,19 @@ export default {
     // total() {
     //   return this.$store.state.total
     // }
+    // userName() {
+    //   return this.$store.getters.userName
+    // },
+    // userClass() {
+    //   return this.$store.getters.userClass
+    // },
+    ...mapGetters([
+      'userName',
+      'userClass'
+    ])
+    // ...mapGetters({
+    //   userNameFormat: 'userName'
+    // })
   },
   methods: {
     incrementApp() {
@@ -63,6 +87,7 @@ export default {
     ...mapMutations([
       'increment',
       'incrementWithNumber',
+      'mutationUpdateDataApi'
     ]),
     // ...mapMutations({
     //   incrementNameCustom: 'increment'
@@ -71,7 +96,8 @@ export default {
       this.$store.dispatch('actionIncrement')
     },
     ...mapActions([
-      'actionIncrement'
+      'actionIncrement',
+      'actionUpdateDataAPI'
     ])
     // ...mapActions({
     //   actionIncrementCustomName: 'actionIncrement'
